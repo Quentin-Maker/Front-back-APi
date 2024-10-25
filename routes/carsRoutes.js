@@ -36,8 +36,9 @@ carsRouter.put("/:id", (req, res) => {
 
 // DELETE delete a car based on the param id
 carsRouter.delete("/:id", (req, res) => {
+	const { id } = req.body
 	res.json({
-		msg: "update a car based on its id ... ",
+		msg: "delete a car based on its id ... ",
 	})
 })
 
