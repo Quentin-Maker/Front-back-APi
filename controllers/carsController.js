@@ -51,7 +51,17 @@ exports.createNewCar = (req, res) => {
 // DELETE car based on its ID
 exports.deleteCarById = (req, res) => {
 	const { id } = req.params
-	res.json({
-		msg: "delete a car based on its id ... " + id,
+
+	// run the query
+	db.run("DELETE FROM cars WHERE id = ?", [id], function (err) {
+		if (err) {
+			res.status(500).json({ error: err.message })
+		} else if (this.changes === 0) {
+			// if nothing found
+			res.status(404).json({ message: "Car not found" })
+		} else {
+			// is successful
+			res.status(200).json({ message: "Car deleted !" })
+		}
 	})
 }
