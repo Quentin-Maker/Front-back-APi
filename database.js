@@ -40,8 +40,8 @@ const db = new sqlite3.Database(process.env.DB_FILE, (err) => {
 		)
 	}
 
-	// Close the database connection
-	db.close()
+	// // Close the database connection
+	// db.close()
 })
 
 module.exports = db
