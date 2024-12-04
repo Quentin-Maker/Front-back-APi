@@ -1,4 +1,5 @@
 const db = require("../database")
+const { generateRandomNumber } = require("../utils/randomUiGenerator")
 
 // GET all users from the database
 exports.getAllUsers = (_req, res) => {
@@ -38,15 +39,29 @@ exports.getOneUserById = (req, res) => {
 exports.signUp = (req, res) => {
 	const { firstName, lastName, email } = req.body
 
+	const avatarUrl = `https://api.dicebear.com/5.x/pixel-art/png?seed=${encodeURIComponent(
+		firstName
+	)}`
+
 	// Lancez la requête pour ajouter des voitures à la base de données.
 	db.run(
-		"INSERT INTO users (firstName,lastName, email ) VALUES (?, ?, ?)",
-		[carName, carYear, carImage],
+		"INSERT INTO users (id, firstName,lastName, imageUrl, email, items ) VALUES (?, ?, ?, ?, ?, ?)",
+		[
+			generateRandomNumber(),
+			firstName,
+			lastName,
+			avatarUrl,
+			email,
+			JSON.stringify([]),
+		],
 		function (err) {
 			if (err) {
 				res.status(500).json({ error: err.message })
 			} else {
-				res.status(201).json({ id: this.lastID, carName })
+				res.status(201).json({
+					id: this.lastID,
+					msg: `user created ${firstName} ${lastName}`,
+				})
 			}
 		}
 	)

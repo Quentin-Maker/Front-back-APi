@@ -1,15 +1,16 @@
 const express = require("express")
 const usersRouter = express.Router()
 const {
-	createNewCar,
 	deleteCarById,
 	updateCarById,
 } = require("../controllers/carsController")
-const { carValidation } = require("../middleware/carValidation")
+// const { carValidation } = require("../middleware/carValidation")
 const {
 	getAllUsers,
 	getOneUserById,
+	signUp,
 } = require("../controllers/usersController")
+const { userValidation } = require("../middleware/userValidation")
 
 usersRouter.get("/test", (_req, res) => {
 	res.json({
@@ -24,7 +25,7 @@ usersRouter.get("/", getAllUsers)
 usersRouter.get("/:id", getOneUserById)
 
 // POST add a new user (sign up)
-usersRouter.post("/", createNewCar)
+usersRouter.post("/", userValidation, signUp)
 
 // PUT update a car based on the param id
 usersRouter.put("/:id", updateCarById)
