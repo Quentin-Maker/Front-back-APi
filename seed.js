@@ -46,7 +46,7 @@ const carsList = [
 	},
 ]
 
-// Function to insert users
+// Function to insert cars
 function insertCars() {
 	carsList.forEach((car) => {
 		db.run(
@@ -63,5 +63,38 @@ function insertCars() {
 	})
 }
 
+const testUsers = [
+	{
+		firstName: "User",
+		lastName: "Test",
+		imageUrl: "",
+		items: "",
+	},
+	{
+		firstName: "User Two",
+		lastName: "Test Two",
+		imageUrl: "",
+		items: "",
+	},
+]
+
+// Function to insert cars
+function insertUsers() {
+	testUsers.forEach((user) => {
+		db.run(
+			`INSERT INTO users (id, firstName, lastName, imageUrl) VALUES (?, ?, ?, ?)`,
+			[generateRandomNumber(), user.firstName, user.lastName, user.imageUrl],
+			(err) => {
+				if (err) {
+					console.error("Error inserting user:", err.message)
+				} else {
+					console.log(`Inserted user: ${user.firstName} : ${user.lastName}`)
+				}
+			}
+		)
+	})
+}
+
 // Run the insert function
 insertCars()
+insertUsers()

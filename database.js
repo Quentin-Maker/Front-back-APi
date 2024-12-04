@@ -8,7 +8,7 @@ const db = new sqlite3.Database(process.env.DB_FILE, (err) => {
 	} else {
 		console.log("Connected to the SQLite database.")
 
-		// Create the items table if it doesn't exist
+		// Create the cars table if it doesn't exist
 		db.run(
 			`CREATE TABLE IF NOT EXISTS cars (
         id INTEGER PRIMARY KEY,
@@ -22,7 +22,26 @@ const db = new sqlite3.Database(process.env.DB_FILE, (err) => {
 				}
 			}
 		)
+
+		// Create the users table if it doesn't exist
+		db.run(
+			`CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY,
+        firstName TEXT NOT NULL,
+        lastName TEXT NOT NULL,
+        imageUrl TEXT NOT NULL,
+		items TEXT
+      )`,
+			(err) => {
+				if (err) {
+					console.error("Error creating table:", err.message)
+				}
+			}
+		)
 	}
+
+	// Close the database connection
+	db.close()
 })
 
 module.exports = db
