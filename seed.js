@@ -68,22 +68,26 @@ const testUsers = [
 		firstName: "User",
 		lastName: "Test",
 		imageUrl: "",
-		items: "",
+		items: [1, 2, 3],
 	},
 	{
 		firstName: "User Two",
 		lastName: "Test Two",
 		imageUrl: "",
-		items: "",
+		items: [4, 5, 6, 7],
 	},
 ]
 
 // Function to insert cars
 function insertUsers() {
 	testUsers.forEach((user) => {
+		const avatarUrl = `https://api.dicebear.com/5.x/pixel-art/png?seed=${encodeURIComponent(
+			user.firstName
+		)}`
+		const jsonString = JSON.stringify(user.items)
 		db.run(
-			`INSERT INTO users (id, firstName, lastName, imageUrl) VALUES (?, ?, ?, ?)`,
-			[generateRandomNumber(), user.firstName, user.lastName, user.imageUrl],
+			`INSERT INTO users ( firstName, lastName, imageUrl, items) VALUES ( ?, ?, ?, ?)`,
+			[user.firstName, user.lastName, avatarUrl, jsonString],
 			(err) => {
 				if (err) {
 					console.error("Error inserting user:", err.message)
