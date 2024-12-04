@@ -13,7 +13,16 @@ app.use((req, res, next) => {
 		"Access-Control-Allow-Headers",
 		"Origin, X-Requested-With, Content, Accept, Content-Type, x-api-key"
 	)
-	res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, PUT, DELETE, OPTIONS"
+	)
+
+	// Handle preflight requests
+	if (req.method === "OPTIONS") {
+		return res.sendStatus(204) // No Content
+	}
+
 	next()
 })
 
