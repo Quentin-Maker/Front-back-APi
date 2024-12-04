@@ -6,6 +6,7 @@ const {
 	createNewCar,
 	deleteCarById,
 } = require("../controllers/carsController")
+const { carValidation } = require("../middleware/carValidation")
 
 carsRouter.get("/test", (_req, res) => {
 	res.json({
@@ -14,7 +15,7 @@ carsRouter.get("/test", (_req, res) => {
 })
 
 // GET return a list of all cars
-carsRouter.get("/", getAllCars)
+carsRouter.get("/", carValidation, getAllCars)
 
 // GET one car based on its id
 carsRouter.get("/:id", getOneCarById)

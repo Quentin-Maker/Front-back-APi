@@ -2,6 +2,8 @@ const db = require("../database")
 
 // GET all cars from the database
 exports.getAllCars = (_req, res) => {
+	console.log(res.locals.msg)
+
 	db.all("SELECT * FROM cars", [], (err, rows) => {
 		if (err) {
 			res.status(500).json({ error: err.message })
