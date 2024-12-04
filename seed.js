@@ -68,12 +68,14 @@ const testUsers = [
 		firstName: "User",
 		lastName: "Test",
 		imageUrl: "",
+		email: "testOne@test.net",
 		items: [1, 2, 3],
 	},
 	{
 		firstName: "User Two",
 		lastName: "Test Two",
 		imageUrl: "",
+		email: "testTwo@test.net",
 		items: [4, 5, 6, 7],
 	},
 ]
@@ -86,8 +88,8 @@ function insertUsers() {
 		)}`
 		const jsonString = JSON.stringify(user.items)
 		db.run(
-			`INSERT INTO users ( firstName, lastName, imageUrl, items) VALUES ( ?, ?, ?, ?)`,
-			[user.firstName, user.lastName, avatarUrl, jsonString],
+			`INSERT INTO users ( firstName, lastName, imageUrl, email, items) VALUES ( ?, ?, ?, ?, ?)`,
+			[user.firstName, user.lastName, avatarUrl, user.email, jsonString],
 			(err) => {
 				if (err) {
 					console.error("Error inserting user:", err.message)

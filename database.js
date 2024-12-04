@@ -30,6 +30,7 @@ const db = new sqlite3.Database(process.env.DB_FILE, (err) => {
         firstName TEXT NOT NULL,
         lastName TEXT NOT NULL,
         imageUrl TEXT NOT NULL,
+        email TEXT NOT NULL,
 		items TEXT
       )`,
 			(err) => {
