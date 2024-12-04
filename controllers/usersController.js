@@ -24,7 +24,11 @@ exports.getOneUserById = (req, res) => {
 					.status(404)
 					.json({ error: "user not found with this ID: " + id })
 			} else {
-				return res.status(200).json(rows)
+				const data = {
+					...rows,
+					items: JSON.parse(rows.items),
+				}
+				return res.status(200).json(data)
 			}
 		}
 	})
@@ -32,11 +36,11 @@ exports.getOneUserById = (req, res) => {
 
 // POST create a new user
 exports.signUp = (req, res) => {
-	const { firstName, lastName } = req.body
+	const { firstName, lastName, email } = req.body
 
 	// Lancez la requête pour ajouter des voitures à la base de données.
 	db.run(
-		"INSERT INTO users (carName,carYear, carImage ) VALUES (?, ?, ?)",
+		"INSERT INTO users (firstName,lastName, email ) VALUES (?, ?, ?)",
 		[carName, carYear, carImage],
 		function (err) {
 			if (err) {

@@ -1,13 +1,15 @@
 const express = require("express")
 const usersRouter = express.Router()
 const {
-	getAllCars,
-	getOneCarById,
 	createNewCar,
 	deleteCarById,
 	updateCarById,
 } = require("../controllers/carsController")
 const { carValidation } = require("../middleware/carValidation")
+const {
+	getAllUsers,
+	getOneUserById,
+} = require("../controllers/usersController")
 
 usersRouter.get("/test", (_req, res) => {
 	res.json({
@@ -15,13 +17,13 @@ usersRouter.get("/test", (_req, res) => {
 	})
 })
 
-// GET return a list of all cars
-usersRouter.get("/", getAllCars)
+// GET return a list of all users
+usersRouter.get("/", getAllUsers)
 
 // GET one car based on its id
-usersRouter.get("/:id", getOneCarById)
+usersRouter.get("/:id", getOneUserById)
 
-// POST add a new car
+// POST add a new user (sign up)
 usersRouter.post("/", createNewCar)
 
 // PUT update a car based on the param id

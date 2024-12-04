@@ -88,8 +88,15 @@ function insertUsers() {
 		)}`
 		const jsonString = JSON.stringify(user.items)
 		db.run(
-			`INSERT INTO users ( firstName, lastName, imageUrl, email, items) VALUES ( ?, ?, ?, ?, ?)`,
-			[user.firstName, user.lastName, avatarUrl, user.email, jsonString],
+			`INSERT INTO users ( id, firstName, lastName, imageUrl, email, items) VALUES ( ?, ?, ?, ?, ?, ?)`,
+			[
+				generateRandomNumber(),
+				user.firstName,
+				user.lastName,
+				avatarUrl,
+				user.email,
+				jsonString,
+			],
 			(err) => {
 				if (err) {
 					console.error("Error inserting user:", err.message)
