@@ -15,7 +15,7 @@ carsRouter.get("/test", (_req, res) => {
 })
 
 // GET return a list of all cars
-carsRouter.get("/", carValidation, getAllCars)
+carsRouter.get("/", getAllCars)
 
 // GET one car based on its id
 carsRouter.get("/:id", getOneCarById)
