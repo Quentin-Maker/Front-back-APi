@@ -4,7 +4,7 @@ const express = require("express")
 const app = express()
 const port = 3000
 app.use(express.json())
-const { generateRandomNumber } = require("./utils/randomUiGenerator")
+const usersRouter = require("./routes/usersRoutes")
 
 // CORS
 app.use((req, res, next) => {
@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
 
 // API KEY CHECK
 app.use("/api/cars", checkApiKey, carsRouter)
+app.use("/api/users", checkApiKey, usersRouter)
 
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`)
