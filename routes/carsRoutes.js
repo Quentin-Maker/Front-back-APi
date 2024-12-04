@@ -1,30 +1,26 @@
 const express = require("express")
 const carsRouter = express.Router()
-const db = require("../database")
+const {
+	getAllCars,
+	getOneCarById,
+	createNewCar,
+	deleteCarById,
+} = require("../controllers/carsController")
 
-carsRouter.get("/test", (req, res) => {
+carsRouter.get("/test", (_req, res) => {
 	res.json({
 		msg: "cars route test ok !!",
 	})
 })
 
 // GET return a list of all cars
-carsRouter.get("/", (req, res) => {
-	db.all("SELECT * FROM cars", [], (err, rows) => {
-		if (err) {
-			res.status(500).json({ error: err.message })
-		} else {
-			res.json(rows)
-		}
-	})
-})
+carsRouter.get("/", getAllCars)
+
+// GET one car based on its id
+carsRouter.get("/:id", getOneCarById)
 
 // POST add a new car
-carsRouter.post("/", (req, res) => {
-	const { carName, carYear, carImage } = req.body
-
-	// Lancez la requête pour ajouter des voitures à la base de données.
-})
+carsRouter.post("/", createNewCar)
 
 // PUT update a car based on the param id
 carsRouter.put("/:id", (req, res) => {
@@ -35,17 +31,6 @@ carsRouter.put("/:id", (req, res) => {
 })
 
 // DELETE delete a car based on the param id
-carsRouter.delete("/:id", (req, res) => {
-	const { id } = req.body
-	res.json({
-		msg: "delete a car based on its id ... ",
-	})
-})
-
-// GET one car based on its id
-carsRouter.get("/:id", (req, res) => {
-	const { id } = req.body
-	// Essayez de trouver l'utilisateur, si vous le trouvez, renvoyez-le au client.
-})
+carsRouter.delete("/:id", deleteCarById)
 
 module.exports = carsRouter
