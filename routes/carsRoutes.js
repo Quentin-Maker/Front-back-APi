@@ -5,6 +5,7 @@ const {
 	getOneCarById,
 	createNewCar,
 	deleteCarById,
+	updateCarById,
 } = require("../controllers/carsController")
 const { carValidation } = require("../middleware/carValidation")
 
@@ -24,12 +25,7 @@ carsRouter.get("/:id", getOneCarById)
 carsRouter.post("/", createNewCar)
 
 // PUT update a car based on the param id
-carsRouter.put("/:id", (req, res) => {
-	const { id } = req.params
-	console.log(id)
-
-	// Lancez la requête pour la mise à jour.
-})
+carsRouter.put("/:id", updateCarById)
 
 // DELETE delete a car based on the param id
 carsRouter.delete("/:id", deleteCarById)

@@ -48,6 +48,14 @@ exports.createNewCar = (req, res) => {
 	)
 }
 
+exports.updateCarById = (req, res) => {
+	const { id } = req.params
+	console.log(id)
+
+	// Lancez la requête pour la mise à jour.
+	res.status(200).json({ message: "Car updated !" })
+}
+
 // DELETE car based on its ID
 exports.deleteCarById = (req, res) => {
 	const { id } = req.params
