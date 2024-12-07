@@ -50,8 +50,8 @@ const carsList = [
 function insertCars() {
 	carsList.forEach((car) => {
 		db.run(
-			`INSERT INTO cars (id, carName, carYear, carImage) VALUES (?, ?, ?, ?)`,
-			[generateRandomNumber(), car.carName, car.carYear, car.carImg],
+			`INSERT INTO cars ( carName, carYear, carImage) VALUES ( ?, ?, ?)`,
+			[car.carName, car.carYear, car.carImg],
 			(err) => {
 				if (err) {
 					console.error("Error inserting car:", err.message)
@@ -69,6 +69,7 @@ const testUsers = [
 		lastName: "Test",
 		imageUrl: "",
 		email: "testOne@test.net",
+		userName: "userTest",
 		items: [1, 2, 3],
 	},
 	{
@@ -76,6 +77,7 @@ const testUsers = [
 		lastName: "Test Two",
 		imageUrl: "",
 		email: "testTwo@test.net",
+		userName: "UserTwo",
 		items: [4, 5, 6, 7],
 	},
 ]
@@ -88,13 +90,14 @@ function insertUsers() {
 		)}`
 		const jsonString = JSON.stringify(user.items)
 		db.run(
-			`INSERT INTO users ( id, firstName, lastName, imageUrl, email, items) VALUES ( ?, ?, ?, ?, ?, ?)`,
+			`INSERT INTO users ( id, firstName, lastName, imageUrl, email, userName, items) VALUES ( ?, ?, ?, ?, ?, ?, ?)`,
 			[
 				generateRandomNumber(),
 				user.firstName,
 				user.lastName,
 				avatarUrl,
 				user.email,
+				user.userName,
 				jsonString,
 			],
 			(err) => {

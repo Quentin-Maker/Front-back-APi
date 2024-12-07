@@ -37,7 +37,7 @@ exports.getOneUserById = (req, res) => {
 
 // POST create a new user
 exports.signUp = (req, res) => {
-	const { firstName, lastName, email } = req.body
+	const { firstName, lastName, email, userName } = req.body
 
 	const avatarUrl = `https://api.dicebear.com/5.x/pixel-art/png?seed=${encodeURIComponent(
 		firstName
@@ -45,13 +45,14 @@ exports.signUp = (req, res) => {
 
 	// Lancez la requête pour ajouter des voitures à la base de données.
 	db.run(
-		"INSERT INTO users (id, firstName,lastName, imageUrl, email, items ) VALUES (?, ?, ?, ?, ?, ?)",
+		"INSERT INTO users (id, firstName,lastName, imageUrl, email, userName, items ) VALUES (?, ?, ?, ?, ?, ?, ?)",
 		[
 			generateRandomNumber(),
 			firstName,
 			lastName,
 			avatarUrl,
 			email,
+			userName,
 			JSON.stringify([]),
 		],
 		function (err) {
@@ -60,11 +61,33 @@ exports.signUp = (req, res) => {
 			} else {
 				res.status(201).json({
 					id: this.lastID,
-					msg: `user created ${firstName} ${lastName}`,
+					msg: `user created ${firstName} ${lastName}. Username: ${userName}`,
 				})
 			}
 		}
 	)
+}
+
+// POST sign In a new user
+exports.logIn = (req, res) => {
+	const { userName, email } = req.body
+	db.get("SELECT * FROM users WHERE email = ?", [email], (err, rows) => {
+		if (err) {
+			return res.status(500).json({ error: err.message })
+		} else {
+			if (!rows) {
+				return res
+					.status(404)
+					.json({ error: "user not found with this email: " + email })
+			} else {
+				const data = {
+					...rows,
+					items: JSON.parse(rows.items),
+				}
+				return res.status(200).json(data)
+			}
+		}
+	})
 }
 
 exports.updateCarById = (req, res) => {
