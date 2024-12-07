@@ -1,5 +1,7 @@
 const db = require("../database")
 const { generateRandomNumber } = require("../utils/randomUiGenerator")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 // GET all users from the database
 exports.getAllUsers = (_req, res) => {
@@ -76,15 +78,17 @@ exports.logIn = (req, res) => {
 			return res.status(500).json({ error: err.message })
 		} else {
 			if (!rows) {
-				return res
-					.status(404)
-					.json({ error: "user not found with this email: " + email })
+				return res.status(401).json({ error: "Wrong credentials ... " })
 			} else {
 				const data = {
 					...rows,
-					items: JSON.parse(rows.items),
 				}
-				return res.status(200).json(data)
+				if (data.userName !== userName) {
+					return res.status(401).json({ error: "Wrong credentials ... " })
+				}
+
+				let token = jwt.sign({ user: data }, process.env.SECRET_PHRASE_TOKEN)
+				return res.send(token)
 			}
 		}
 	})
