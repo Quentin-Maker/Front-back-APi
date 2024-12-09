@@ -119,3 +119,7 @@ exports.deleteCarById = (req, res) => {
 		}
 	})
 }
+
+exports.checkUserAuth = (_req, res) => {
+	res.status(200).json({ msg: "auth" })
+}
