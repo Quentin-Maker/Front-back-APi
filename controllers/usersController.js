@@ -73,7 +73,7 @@ exports.signUp = (req, res) => {
 // POST sign In a new user
 exports.logIn = (req, res) => {
 	const { userName, email } = req.body
-	db.get("SELECT * FROM users WHERE email = ?", [email], (err, rows) => {
+	db.get("SELECT * FROM users WHERE email = ?", [email], async (err, rows) => {
 		if (err) {
 			return res.status(500).json({ error: err.message })
 		} else {
@@ -88,7 +88,10 @@ exports.logIn = (req, res) => {
 				}
 
 				let token = jwt.sign({ user: data }, process.env.SECRET_PHRASE_TOKEN)
-				return res.send(token)
+				const decoded = await jwt.verify(token, process.env.SECRET_PHRASE_TOKEN)
+				console.log(decoded.user.id)
+
+				return res.json({ token, _id: decoded.user.id })
 			}
 		}
 	})

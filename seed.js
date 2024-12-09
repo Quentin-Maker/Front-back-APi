@@ -3,6 +3,7 @@ const { generateRandomNumber } = require("./utils/randomUiGenerator")
 
 const carsList = [
 	{
+		id: 1,
 		carName: "Toyota Corolla",
 		carYear: 2020,
 		carImg:
@@ -10,6 +11,7 @@ const carsList = [
 		userId: 1,
 	},
 	{
+		id: 2,
 		carName: "Honda Civic",
 		carYear: 2019,
 		carImg:
@@ -17,6 +19,7 @@ const carsList = [
 		userId: 1,
 	},
 	{
+		id: 3,
 		carName: "Ford Mustang",
 		carYear: 2021,
 		carImg:
@@ -24,6 +27,7 @@ const carsList = [
 		userId: 1,
 	},
 	{
+		id: 4,
 		carName: "Chevrolet Camaro",
 		carYear: 2022,
 		carImg:
@@ -31,6 +35,7 @@ const carsList = [
 		userId: 2,
 	},
 	{
+		id: 5,
 		carName: "Tesla Model 3",
 		carYear: 2023,
 		carImg:
@@ -38,6 +43,7 @@ const carsList = [
 		userId: 2,
 	},
 	{
+		id: 6,
 		carName: "BMW 3 Series",
 		carYear: 2018,
 		carImg:
@@ -45,6 +51,7 @@ const carsList = [
 		userId: 2,
 	},
 	{
+		id: 7,
 		carName: "Audi A4",
 		carYear: 2020,
 		carImg:
@@ -57,8 +64,8 @@ const carsList = [
 function insertCars() {
 	carsList.forEach((car) => {
 		db.run(
-			`INSERT INTO cars ( carName, carYear, carImage, userId) VALUES ( ?, ?, ?, ?)`,
-			[car.carName, car.carYear, car.carImg, car.userId],
+			`INSERT INTO cars ( id, carName, carYear, carImage, userId) VALUES ( ?, ?, ?, ?, ?)`,
+			[car.id, car.carName, car.carYear, car.carImg, car.userId],
 			(err) => {
 				if (err) {
 					console.error("Error inserting car:", err.message)
