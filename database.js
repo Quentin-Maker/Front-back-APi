@@ -14,7 +14,8 @@ const db = new sqlite3.Database(process.env.DB_FILE, (err) => {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         carName TEXT NOT NULL,
         carYear NUMBER NOT NULL,
-        carImage TEXT NOT NULL
+        carImage TEXT NOT NULL,
+		userId INTEGER NOT NULL
       )`,
 			(err) => {
 				if (err) {
