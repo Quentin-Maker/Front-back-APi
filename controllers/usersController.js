@@ -97,12 +97,34 @@ exports.logIn = (req, res) => {
 	})
 }
 
-exports.updateCarById = (req, res) => {
-	const { id } = req.params
-	console.log(id)
+// PUT modify user
+exports.updateUserById = async (req, res) => {
+	const userId = req.params.id
+	const userDetails = req.body
+	console.log(userId, userDetails)
 
-	// Lancez la requête pour la mise à jour.
-	res.status(200).json({ message: "Car updated !" })
+	// essayez de trouver l'utilisateur avec cet identifiant
+	db.get(
+		"SELECT * FROM users WHERE id = ?",
+		[parseInt(userId)],
+		(err, rows) => {
+			if (err) {
+				return res.status(500).json({ error: err.message })
+			} else {
+				if (!rows) {
+					return res
+						.status(404)
+						.json({ error: "user not found with this ID: " + userId })
+				} else {
+					console.log(rows)
+					// update the user with precious data
+
+					// Lancez la requête pour la mise à jour.
+					res.status(200).json({ message: "Car updated !" })
+				}
+			}
+		}
+	)
 }
 
 // DELETE car based on its ID
