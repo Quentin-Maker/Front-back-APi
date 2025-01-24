@@ -1,4 +1,3 @@
-// initialize variable
 let carsList
 
 fetch("http://localhost:3000/api/cars", {
@@ -65,7 +64,7 @@ function writeDom() {
 
 writeDom();
 
-// Gestion des boutons Edit
+// boutons Edit
 let editButtons = document.querySelectorAll(".edit");
 editButtons.forEach((btn) => {
 	btn.addEventListener("click", (e) => {
@@ -73,7 +72,7 @@ editButtons.forEach((btn) => {
 	});
 });
 
-// Gestion des boutons View
+// boutons View
 let viewButtons = document.querySelectorAll(".view");
 viewButtons.forEach((btn) => {
 	btn.addEventListener("click", (e) => {
@@ -103,7 +102,6 @@ function viewModal(gameId) {
 	const modalBody = `<img src="${carsList[result].imageUrl}" alt="${carsList[result].title}" class="img-fluid" />`
 	modifyModal(carsList[result].title, modalBody)
 	// edit footer
-	// Écrire dans le footer
 	document.querySelector(".modal-footer").innerHTML = `
 		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
 			Close

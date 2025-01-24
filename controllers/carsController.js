@@ -53,7 +53,7 @@ exports.updateCarById = (req, res) => {
 	res.status(200).json({ message: "Car updated !" })
 }
 
-// DELETE car based on its ID
+
 exports.deleteCarById = (req, res) => {
 	const { id } = req.params
 

@@ -1,6 +1,5 @@
 const db = require("../database")
 
-// Function to update a user in the database
 function updateUser(userId, userDetails) {
 	return new Promise((resolve, reject) => {
 		const sql = `

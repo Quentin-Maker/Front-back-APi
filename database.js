@@ -1,7 +1,7 @@
 const sqlite3 = require("sqlite3").verbose()
 require("dotenv").config()
 
-// database connection
+// Database connection
 const db = new sqlite3.Database(process.env.DB_FILE, (err) => {
 	if (err) {
 		console.error("Error opening database:", err.message)
@@ -42,9 +42,6 @@ const db = new sqlite3.Database(process.env.DB_FILE, (err) => {
 			}
 		)
 	}
-
-	// // Close the database connection
-	// db.close()
 })
 
 module.exports = db
