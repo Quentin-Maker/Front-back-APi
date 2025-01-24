@@ -3,7 +3,7 @@ const { generateRandomNumber } = require("../utils/randomUiGenerator")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
-// GET all users from the database
+
 exports.getAllUsers = (_req, res) => {
 	db.all("SELECT * FROM users", [], (err, rows) => {
 		if (err) {
@@ -14,7 +14,6 @@ exports.getAllUsers = (_req, res) => {
 	})
 }
 
-// GET one car based on its ID
 exports.getOneUserById = (req, res) => {
 	const { id } = req.params
 	// find the user with this ID,
@@ -45,7 +44,7 @@ exports.signUp = (req, res) => {
 		firstName
 	)}`
 
-	// Lancez la requête pour ajouter des voitures à la base de données.
+
 	db.run(
 		"INSERT INTO users (id, firstName,lastName, imageUrl, email, userName, items ) VALUES (?, ?, ?, ?, ?, ?, ?)",
 		[
@@ -70,7 +69,7 @@ exports.signUp = (req, res) => {
 	)
 }
 
-// POST sign In a new user
+
 exports.logIn = (req, res) => {
 	const { userName, email } = req.body
 	db.get("SELECT * FROM users WHERE email = ?", [email], async (err, rows) => {
@@ -91,22 +90,16 @@ exports.logIn = (req, res) => {
 				const decoded = await jwt.verify(token, process.env.SECRET_PHRASE_TOKEN)
 				console.log(decoded.user.id)
 
-				return res.json({
-					token,
-					_id: decoded.user.id,
-					userImg: decoded.user.imageUrl,
-				})
+				return res.json({ token, _id: decoded.user.id })
 			}
 		}
 	})
 }
 
-// PUT modify user
 exports.updateUserById = async (req, res) => {
 	const userId = req.params.id
 	const userDetails = req.body
 
-	// Attempt to find the user with this ID
 	db.get(
 		"SELECT * FROM users WHERE id = ?",
 		[parseInt(userId)],
@@ -139,9 +132,8 @@ exports.updateUserById = async (req, res) => {
 				}
 			})
 
-			// Generate the SET clause for the SQL query dynamically
 			const updates = Object.keys(newUserData)
-				.filter((key) => key !== "id") // Exclude the ID field
+				.filter((key) => key !== "id")
 				.map((key) => `${key} = ?`)
 				.join(", ")
 
@@ -149,7 +141,6 @@ exports.updateUserById = async (req, res) => {
 				.filter((key) => key !== "id")
 				.map((key) => newUserData[key])
 
-			// Execute the update query
 			db.run(
 				`UPDATE users SET ${updates} WHERE id = ?`,
 				[...values, userId],
@@ -168,11 +159,9 @@ exports.updateUserById = async (req, res) => {
 	)
 }
 
-// DELETE car based on its ID
 exports.deleteCarById = (req, res) => {
 	const { id } = req.params
 
-	// run the query
 	db.run("DELETE FROM cars WHERE id = ?", [id], function (err) {
 		if (err) {
 			res.status(500).json({ error: err.message })

@@ -15,19 +15,19 @@ carsRouter.get("/test", (_req, res) => {
 	})
 })
 
-// GET return a list of all cars
+// request GET to return a list of all cars
 carsRouter.get("/", getAllCars)
 
-// GET one car based on its id
+// request GET for one car based on its id
 carsRouter.get("/:id", getOneCarById)
 
-// POST add a new car
+// request POST to add a new car
 carsRouter.post("/", createNewCar)
 
-// PUT update a car based on the param id
+// request PUT to update a car based on the param id
 carsRouter.put("/:id", updateCarById)
 
-// DELETE delete a car based on the param id
+// request DELETE to delete a car based on the param id
 carsRouter.delete("/:id", deleteCarById)
 
 module.exports = carsRouter

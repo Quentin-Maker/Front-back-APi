@@ -4,14 +4,15 @@ const {
 	deleteCarById,
 	updateCarById,
 } = require("../controllers/carsController")
+
+
 // const { carValidation } = require("../middleware/carValidation")
 const {
 	getAllUsers,
 	getOneUserById,
 	signUp,
-	logIn,
 	checkUserAuth,
-	updateUserById,
+	logIn,
 } = require("../controllers/usersController")
 const { userValidation } = require("../middleware/userValidation")
 const { checkToken } = require("../middleware/checkToken")
@@ -28,18 +29,21 @@ usersRouter.get("/", getAllUsers)
 // GET one car based on its id
 usersRouter.get("/:id", getOneUserById)
 
-// POST add a new user (sign up)
-usersRouter.post("/signup", userValidation, signUp)
+// POST add a new user
+usersRouter.post("/", userValidation, signUp)
 
 usersRouter.post("/check", checkToken, checkUserAuth)
 
-// POST add a validate user (log in)
+// POST add a validate user
 usersRouter.post("/login", userValidation, logIn)
 
-// PUT update a car based on the param id
-usersRouter.put("/:id", updateUserById)
+// POST add a new user
+usersRouter.post("/signup", userValidation, signUp)
 
-// DELETE delete a car based on the param id
+// PUT car based on the param id
+usersRouter.put("/:id", updateCarById)
+
+// DELETE car based on the param id
 usersRouter.delete("/:id", deleteCarById)
 
 module.exports = usersRouter

@@ -1,7 +1,6 @@
 exports.carValidation = (req, res, next) => {
 	const { carName, carYear, carImage } = req.body
 
-	// alphanumeric only regex
 	function isAlphanumeric(str) {
 		const regex = /^[a-zA-Z0-9]+$/
 		return regex.test(str)
